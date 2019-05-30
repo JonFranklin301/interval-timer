@@ -1,0 +1,38 @@
+{
+  "name": "interval-timer",
+  "version": "1.0.0",
+  "description": "A time accurate count up/down timer",
+  "browser": "dist/interval-timer.umd.js",
+  "main": "./src/index.js",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JonFranklin301/interval-timer.git"
+  },
+  "keywords": [
+    "timer",
+    "countdown",
+    "stopwatch",
+    "setInterval",
+    "setTimeout",
+    "time",
+    "clock"
+  ],
+  "author": "Jon Franklin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JonFranklin301/interval-timer/issues"
+  },
+  "homepage": "https://github.com/JonFranklin301/interval-timer#README",
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "rollup": "^1.12.4",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-babel-minify": "^8.0.0",
+    "rollup-plugin-node-resolve": "^5.0.0"
+  }
+}

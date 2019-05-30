@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Timer with Controls</title>
+  </head>
+  <body>
+    <div id="time">00:00:00.0</div>
+
+    <button id="start">Start</button>
+    <button id="pause">Pause</button>
+    <button id="stop">Stop</button>
+    <button id="reset">Reset</button>
+    <br />
+
+    <div id="status">...</div>
+    <br />
+
+    Add or Remove 10 Seconds (Timer must be running):
+    <br />
+
+    <button id="addTen">Add 10 Seconds</button>
+    <button id="minusTen">Minus 10 Seconds</button>
+
+    <script src="../dist/interval-timer.umd.min.js"></script>
+    <script>
+      const timer = new intervalTimer.Timer();
+
+      timer.on('update', function() {
+        var time = timer.getTime;
+        document.getElementById('time').innerText = document.getElementById(
+          'time'
+        ).innerText =
+          intervalTimer.pad('00', time.hours, true) +
+          ':' +
+          intervalTimer.pad('00', time.minutes, true) +
+          ':' +
+          intervalTimer.pad('00', time.seconds, true) +
+          '.' +
+          time.tenths;
+      });
+
+      timer.on('start', function() {
+        document.getElementById('status').innerText = 'Timer Started!';
+      });
+      timer.on('stop', function() {
+        document.getElementById('status').innerText = 'Timer Stopped!';
+      });
+      timer.on('pause', function() {
+        document.getElementById('status').innerText = 'Timer Paused!';
+      });
+      timer.on('reset', function() {
+        document.getElementById('status').innerText = 'Timer Reset!';
+      });
+
+      document.getElementById('start').addEventListener('click', function() {
+        timer.start();
+      });
+      document.getElementById('pause').addEventListener('click', function() {
+        timer.pause();
+      });
+      document.getElementById('stop').addEventListener('click', function() {
+        timer.stop();
+      });
+      document.getElementById('reset').addEventListener('click', function() {
+        timer.reset();
+      });
+      document.getElementById('addTen').addEventListener('click', function() {
+        timer.adjustTime(10000);
+      });
+      document.getElementById('minusTen').addEventListener('click', function() {
+        timer.adjustTime(-10000);
+      });
+    </script>
+  </body>
+</html>
