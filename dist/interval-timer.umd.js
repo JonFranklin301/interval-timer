@@ -74,7 +74,9 @@
      * @param {boolean} [options.countdown=false]       - Countdown - Timer stops at 0 if endTime is not defined or negative
      * @param {boolean} [options.animationFrame=false]  - Use the browser window refresh rate as the Timer updateFrequncy - overwrites the updateFrequency setting
      */
-    function Timer(options) {
+    function Timer() {
+      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
       _classCallCheck(this, Timer);
 
       this.startTime = 0;
@@ -101,7 +103,7 @@
      * Timer instance
      * @private
      * @fires Timer#update    - Emitted when the Timer updates
-     * @fires Timer#complete  - Emitted when the Timer completes
+     * @fires Timer#end       - Emitted when the Timer ends
      */
 
 
@@ -127,7 +129,7 @@
             this._currentTime = this.endTime;
             this._isRunning = false;
             this.dispatchEvent('update', this);
-            this.dispatchEvent('complete', this);
+            this.dispatchEvent('end', this);
             return;
           } // Dispatch update event
 
@@ -155,12 +157,13 @@
        * @param {boolean} [options.countdown=false]       - Countdown - Timer stops at 0 if endTime is not defined or negative
        * @param {boolean} [options.animationFrame=false]  - Use the browser window refresh rate as the Timer updateFrequncy - overwrites the updateFrequency setting
        *
-       * @fires Timer#started                             - Emitted when the Timer is started
+       * @fires Timer#start                               - Emitted when the Timer is started
        */
 
     }, {
       key: "start",
-      value: function start(options) {
+      value: function start() {
+        var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         if (this._isRunning) return; // If paused, resume timer from current position
         // If not paused, start timer using the user options
 
@@ -168,7 +171,7 @@
           this._isPaused = false;
           this._timeAtStart = new Date().getTime();
           this._startTime = this._currentTime;
-          this.dispatchEvent('started', this);
+          this.dispatchEvent('start', this);
 
           this._instance();
 
@@ -181,13 +184,13 @@
         this._startTime = this.startTime;
         this._currentTime = this.startTime;
         this._expected = this.startTime;
-        this.dispatchEvent('started', this); // Start the timer instance
+        this.dispatchEvent('start', this); // Start the timer instance
 
         this._instance();
       }
       /**
        * Stop the Timer
-       * @fires Timer#stopped  - Emitted when the Timer is stopped
+       * @fires Timer#stop    - Emitted when the Timer is stopped
        */
 
     }, {
@@ -197,11 +200,11 @@
         this._isRunning = false;
         this._isPaused = false;
         this.animationFrame ? cancelAnimationFrame(this._timer) : clearTimeout(this._timer);
-        this.dispatchEvent('stopped', this);
+        this.dispatchEvent('stop', this);
       }
       /**
        * Pauses the Timer
-       * @fires Timer#paused  - Emitted when the Timer is paused
+       * @fires Timer#pause   - Emitted when the Timer is paused
        */
 
     }, {
@@ -211,20 +214,31 @@
         this._isRunning = false;
         this._isPaused = true;
         this.animationFrame ? cancelAnimationFrame(this._timer) : clearTimeout(this._timer);
-        this.dispatchEvent('paused', this);
+        this.dispatchEvent('pause', this);
       }
       /**
        * Resets the timer
-       * @fires Timer#update  - Emitted when the Timer is reset
-       * @fires Timer#reset   - Emitted when the timer is reset
+         * @param {object}  [options]                       - User defined options to reset the Timer with
+       * @param {number}  [options.startTime=0]           - Start time in milliseconds
+       * @param {number}  [options.endTime=null]          - End time in milliseconds || null for infinite
+       * @param {number}  [options.updateFrequency=100]   - The frequency to update the timer
+       * @param {boolean} [options.selfAdjust=true]       - Calculate the compensate for Timer drift by adjusting the updateFrequency
+       * @param {boolean} [options.countdown=false]       - Countdown - Timer stops at 0 if endTime is not defined or negative
+       * @param {boolean} [options.animationFrame=false]  - Use the browser window refresh rate as the Timer updateFrequncy - overwrites the updateFrequency setting
+       *
+       * @fires Timer#update       - Emitted when the Timer is reset
+       * @fires Timer#reset         - Emitted when the timer is reset
        */
 
     }, {
       key: "reset",
       value: function reset() {
+        var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         this.stop();
         this._isRunning = false;
-        this._isPaused = false;
+        this._isPaused = false; // Merge user options into this - allows the timer to be reset with new values
+
+        Object.assign(this, options);
         this._currentTime = this.startTime;
         this._expected = this.startTime;
         this.dispatchEvent('update', this);

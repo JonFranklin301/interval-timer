@@ -15,6 +15,7 @@ timer.start();
 - `start(options)` Start the Timer.
 - `stop()` Stop the Timer. When restarted, the timer will reset from the initial startTime value.
 - `pause()` Pause the Timer. When restarted, the Timer will continue from where it was stopped.
+- `reset(options)` Reset the timer to the initial values. Optionally pass in a new options object to reset the Timer with new values.
 - `adjustTime(value)` Adjust the Timer - positive or negative int (in milliseconds). Timer must be running.
 - `addEventListener(event, function)` Add an event listener to the Timer.
 - `removeEventListener(event, function)` Remove an event listener from the Timer.

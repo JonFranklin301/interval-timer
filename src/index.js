@@ -47,7 +47,7 @@ export class Timer {
    * @param {boolean} [options.countdown=false]       - Countdown - Timer stops at 0 if endTime is not defined or negative
    * @param {boolean} [options.animationFrame=false]  - Use the browser window refresh rate as the Timer updateFrequncy - overwrites the updateFrequency setting
    */
-  constructor(options) {
+  constructor(options = {}) {
     this.startTime = 0;
     this.endTime = null;
     this.updateFrequency = 100;
@@ -139,7 +139,7 @@ export class Timer {
    *
    * @fires Timer#start                               - Emitted when the Timer is started
    */
-  start(options) {
+  start(options = {}) {
     if (this._isRunning) return;
 
     // If paused, resume timer from current position
@@ -198,13 +198,26 @@ export class Timer {
   }
   /**
    * Resets the timer
-   * @fires Timer#update  - Emitted when the Timer is reset
-   * @fires Timer#reset   - Emitted when the timer is reset
+
+   * @param {object}  [options]                       - User defined options to reset the Timer with
+   * @param {number}  [options.startTime=0]           - Start time in milliseconds
+   * @param {number}  [options.endTime=null]          - End time in milliseconds || null for infinite
+   * @param {number}  [options.updateFrequency=100]   - The frequency to update the timer
+   * @param {boolean} [options.selfAdjust=true]       - Calculate the compensate for Timer drift by adjusting the updateFrequency
+   * @param {boolean} [options.countdown=false]       - Countdown - Timer stops at 0 if endTime is not defined or negative
+   * @param {boolean} [options.animationFrame=false]  - Use the browser window refresh rate as the Timer updateFrequncy - overwrites the updateFrequency setting
+   *
+   * @fires Timer#update       - Emitted when the Timer is reset
+   * @fires Timer#reset         - Emitted when the timer is reset
    */
-  reset() {
+  reset(options = {}) {
     this.stop();
     this._isRunning = false;
     this._isPaused = false;
+
+    // Merge user options into this - allows the timer to be reset with new values
+    Object.assign(this, options);
+
     this._currentTime = this.startTime;
     this._expected = this.startTime;
     this.dispatchEvent('update', this);
