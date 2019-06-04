@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ---
 
+## [1.1.1] – 2019-06-04
+
+### Fixed
+
+- Fixed bug where the timer would effectively miss an interval when resuming from paused, due to the expected time not being reset
+
 ## [1.1.0] – 2019-05-30
 
 ### Added

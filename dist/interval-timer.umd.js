@@ -171,6 +171,7 @@
           this._isPaused = false;
           this._timeAtStart = new Date().getTime();
           this._startTime = this._currentTime;
+          this._expected = this._startTime;
           this.dispatchEvent('start', this);
 
           this._instance();
