@@ -1,6 +1,6 @@
 {
   "name": "interval-timer",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A time accurate count up/down timer",
   "browser": "dist/interval-timer.umd.js",
   "main": "./src/index.js",
@@ -28,11 +28,11 @@
   },
   "homepage": "https://github.com/JonFranklin301/interval-timer#README",
   "devDependencies": {
-    "@babel/core": "^7.4.5",
-    "@babel/preset-env": "^7.4.5",
-    "rollup": "^1.12.4",
-    "rollup-plugin-babel": "^4.3.2",
-    "rollup-plugin-babel-minify": "^8.0.0",
-    "rollup-plugin-node-resolve": "^5.0.0"
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "rollup": "^2.29.0",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-babel-minify": "^10.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0"
   }
 }

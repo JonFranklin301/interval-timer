@@ -1,8 +1,8 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (global = global || self, factory(global.intervalTimer = {}));
-}(this, function (exports) { 'use strict';
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.intervalTimer = {}));
+}(this, (function (exports) { 'use strict';
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -61,9 +61,7 @@
    * @class
    */
 
-  var Timer =
-  /*#__PURE__*/
-  function () {
+  var Timer = /*#__PURE__*/function () {
     /**
      * @constructor
      * @param {object}  [options]                       - User defined options
@@ -359,4 +357,4 @@
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));

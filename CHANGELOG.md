@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ---
 
+## [1.1.2] – 2020-10-13
+
+### Updated
+
+- Updated deps
+
 ## [1.1.1] – 2019-06-04
 
 ### Fixed
